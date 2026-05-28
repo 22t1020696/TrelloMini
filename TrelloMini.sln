@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36915.13 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrelloMini.Web", "TrelloMini.Web\TrelloMini.Web.csproj", "{DBB384A8-0A8C-4BB3-B1C3-D133E4C6A049}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrelloMini.BusinessLayers", "TrelloMini.BusinessLayers\TrelloMini.BusinessLayers.csproj", "{79465FF7-AB1C-43C2-9F9B-9D61A2133A41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrelloMini.DataLayers", "TrelloMini.DataLayers\TrelloMini.DataLayers.csproj", "{C2D7E693-23E0-451D-A8DA-5EFF5D5B62E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrelloMini.Models", "TrelloMini.Models\TrelloMini.Models.csproj", "{F429F4E3-42A8-45B3-ADF7-56C8E29F1C3B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBB384A8-0A8C-4BB3-B1C3-D133E4C6A049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBB384A8-0A8C-4BB3-B1C3-D133E4C6A049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBB384A8-0A8C-4BB3-B1C3-D133E4C6A049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBB384A8-0A8C-4BB3-B1C3-D133E4C6A049}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79465FF7-AB1C-43C2-9F9B-9D61A2133A41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79465FF7-AB1C-43C2-9F9B-9D61A2133A41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79465FF7-AB1C-43C2-9F9B-9D61A2133A41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79465FF7-AB1C-43C2-9F9B-9D61A2133A41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2D7E693-23E0-451D-A8DA-5EFF5D5B62E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2D7E693-23E0-451D-A8DA-5EFF5D5B62E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2D7E693-23E0-451D-A8DA-5EFF5D5B62E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2D7E693-23E0-451D-A8DA-5EFF5D5B62E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F429F4E3-42A8-45B3-ADF7-56C8E29F1C3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F429F4E3-42A8-45B3-ADF7-56C8E29F1C3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F429F4E3-42A8-45B3-ADF7-56C8E29F1C3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F429F4E3-42A8-45B3-ADF7-56C8E29F1C3B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6BB17C9E-6D4C-4FED-B0E3-7D3C22D9D4D7}
+	EndGlobalSection
+EndGlobal

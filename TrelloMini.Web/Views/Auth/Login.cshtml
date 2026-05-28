@@ -1,0 +1,50 @@
+﻿@model TrelloMini.Models.User
+
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<link rel="stylesheet" href="~/css/login.css" />
+
+<div class="login-box">
+
+    <h2>Đăng nhập</h2>
+
+    <form asp-action="Login" method="post">
+
+        @Html.AntiForgeryToken()
+
+        <input asp-for="Username"
+               class="form-control"
+               placeholder="Username" />
+
+        <br />
+
+        <input asp-for="Password"
+               type="password"
+               class="form-control"
+               placeholder="Password" />
+
+        <br />
+
+        <button type="submit"
+                class="btn btn-primary w-100">
+            Đăng nhập
+        </button>
+
+    </form>
+
+    <br />
+
+    <a asp-action="Register">
+        Chưa có tài khoản? Đăng ký
+    </a>
+
+    @if (ViewBag.Error != null)
+    {
+        <p style="color:red">
+            @ViewBag.Error
+        </p>
+    }
+
+</div>

@@ -1,0 +1,507 @@
+﻿@model List<TrelloMini.Models.Task>
+
+@{
+    ViewData["Title"] = "Mini Trello";
+}
+
+<link rel="stylesheet"
+      href="~/css/task.css"
+      asp-append-version="true" />
+
+<div class="trello-container">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="header-top">
+
+        <div class="logo">
+            <h1>Mini Trello</h1>
+        </div>
+        <form asp-controller="Auth"
+              asp-action="Logout"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <button type="submit"
+                    class="btn-logout">
+
+                Đăng xuất
+
+            </button>
+
+        </form>
+  
+
+
+    </div>
+
+    <!-- ================= CONTROL ================= -->
+
+    <div class="control-panel">
+
+        <!-- SEARCH -->
+
+        <div class="search-section">
+
+            <div class="search-box">
+
+                <input type="text"
+                       id="searchTask"
+                       placeholder="Tìm kiếm công việc..." />
+
+                <button id="btnSearch">
+                    Tìm kiếm
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- FILTER -->
+
+        <div class="filter-section">
+
+            <div class="filter-title">
+                Lọc theo trạng thái
+            </div>
+
+            <div class="filters">
+
+                <button class="filter-btn active"
+                        data-filter="all">
+                    Tất cả
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="To Do">
+                    To Do
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="In Progress">
+                    In Progress
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="Done">
+                    Done
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- ADD -->
+
+        <div class="add-section">
+
+            <button class="btn-add"
+                    onclick="openModal()">
+
+                + Thêm công việc
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ================= BOARD ================= -->
+
+    <div class="board">
+
+        <!-- ================= TO DO ================= -->
+
+        <div class="column">
+
+            <div class="column-header">
+
+                <h3>To Do</h3>
+
+                <span>Cần làm</span>
+
+            </div>
+
+            <div class="task-list">
+
+                @foreach (var item in Model.Where(x => x.Status == "To Do"))
+                {
+                    <div class="task-card"
+                         data-status="@item.Status">
+
+                        <h4>@item.Title</h4>
+
+                        <p>@item.Description</p>
+
+                        <div class="task-footer">
+
+                            <div class="avatar"></div>
+
+                            <!-- MOVE -->
+
+                            <form asp-action="ChangeStatus"
+                                  method="post">
+
+                                <input type="hidden"
+                                       name="id"
+                                       value="@item.TaskID" />
+
+                                <input type="hidden"
+                                       name="status"
+                                       value="In Progress" />
+
+                                <button class="move-btn">
+                                    ➜ Làm
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+        <!-- ================= IN PROGRESS ================= -->
+
+        <div class="column">
+
+            <div class="column-header">
+
+                <h3>In Progress</h3>
+
+                <span>Đang làm</span>
+
+            </div>
+
+            <div class="task-list">
+
+                @foreach (var item in Model.Where(x => x.Status == "In Progress"))
+                {
+                    <div class="task-card progress"
+                         data-status="@item.Status">
+
+                        <h4>@item.Title</h4>
+
+                        <p>@item.Description</p>
+
+                        <div class="task-footer">
+
+                            <div class="avatar"></div>
+
+                            <div class="move-group">
+
+                                <!-- BACK -->
+
+                                <form asp-action="ChangeStatus"
+                                      method="post">
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@item.TaskID" />
+
+                                    <input type="hidden"
+                                           name="status"
+                                           value="To Do" />
+
+                                    <button class="move-btn back-btn">
+                                        ←
+                                    </button>
+
+                                </form>
+
+                                <!-- DONE -->
+
+                                <form asp-action="ChangeStatus"
+                                      method="post">
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@item.TaskID" />
+
+                                    <input type="hidden"
+                                           name="status"
+                                           value="Done" />
+
+                                    <button class="move-btn">
+                                        ✓
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+        <!-- ================= DONE ================= -->
+
+        <div class="column">
+
+            <div class="column-header">
+
+                <h3>Done</h3>
+
+                <span>Hoàn thành</span>
+
+            </div>
+
+            <div class="task-list">
+
+                @foreach (var item in Model.Where(x => x.Status == "Done"))
+                {
+                    <div class="task-card done"
+                         data-status="@item.Status">
+
+                        <h4>@item.Title</h4>
+
+                        <p>@item.Description</p>
+
+                        <div class="task-footer">
+
+                            <div class="avatar"></div>
+
+                            <!-- BACK -->
+
+                            <form asp-action="ChangeStatus"
+                                  method="post">
+
+                                <input type="hidden"
+                                       name="id"
+                                       value="@item.TaskID" />
+
+                                <input type="hidden"
+                                       name="status"
+                                       value="In Progress" />
+
+                                <button class="move-btn back-btn">
+                                    ← Quay lại
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= MODAL ================= -->
+
+    <div id="taskModal" class="modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2>Thêm công việc</h2>
+
+                <span class="close"
+                      onclick="closeModal()">
+
+                    &times;
+
+                </span>
+
+            </div>
+
+            <form asp-action="Create"
+                  method="post">
+
+                <div class="form-group">
+
+                    <label>Tên công việc</label>
+
+                    <input type="text"
+                           name="Title"
+                           required />
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Mô tả</label>
+
+                    <textarea name="Description"></textarea>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Trạng thái</label>
+
+                    <select name="Status">
+
+                        <option value="To Do">
+                            To Do
+                        </option>
+
+                        <option value="In Progress">
+                            In Progress
+                        </option>
+
+                        <option value="Done">
+                            Done
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <input type="hidden"
+                       name="UserID"
+                       value="1" />
+
+                <div class="modal-actions">
+
+                    <button type="submit"
+                            class="save-btn">
+
+                        Lưu
+
+                    </button>
+
+                    <button type="button"
+                            class="cancel-btn"
+                            onclick="closeModal()">
+
+                        Hủy
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script>
+
+        // ================= SEARCH =================
+
+        const searchInput =
+            document.getElementById("searchTask");
+
+        searchInput.addEventListener("keyup", function () {
+
+            const keyword =
+                this.value.toLowerCase();
+
+            const tasks =
+                document.querySelectorAll(".task-card");
+
+            tasks.forEach(task => {
+
+                const text =
+                    task.innerText.toLowerCase();
+
+                if (text.includes(keyword)) {
+
+                    task.style.display = "block";
+                }
+                else {
+
+                    task.style.display = "none";
+                }
+
+            });
+
+        });
+
+        // ================= FILTER =================
+
+        const filterButtons =
+            document.querySelectorAll(".filter-btn");
+
+        filterButtons.forEach(btn => {
+
+            btn.addEventListener("click", function () {
+
+                filterButtons.forEach(x =>
+                    x.classList.remove("active"));
+
+                this.classList.add("active");
+
+                const filter =
+                    this.dataset.filter;
+
+                const tasks =
+                    document.querySelectorAll(".task-card");
+
+                tasks.forEach(task => {
+
+                    if (filter === "all") {
+
+                        task.style.display = "block";
+                    }
+                    else if (
+                        task.dataset.status === filter
+                    ) {
+
+                        task.style.display = "block";
+                    }
+                    else {
+
+                        task.style.display = "none";
+                    }
+
+                });
+
+            });
+
+        });
+
+        // ================= MODAL =================
+
+        function openModal() {
+
+            document
+                .getElementById("taskModal")
+                .style.display = "flex";
+        }
+
+        function closeModal() {
+
+            document
+                .getElementById("taskModal")
+                .style.display = "none";
+        }
+
+        // CLOSE OUTSIDE
+
+        window.onclick = function (event) {
+
+            const modal =
+                document.getElementById("taskModal");
+
+            if (event.target == modal) {
+
+                modal.style.display = "none";
+            }
+        }
+
+    </script>
+
+}
+

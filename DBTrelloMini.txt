@@ -1,0 +1,174 @@
+USE [master]
+GO
+ Object  Database [DBTrelloMini]    Script Date 2852026 111718 PM 
+CREATE DATABASE [DBTrelloMini]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'DBTrelloMini', FILENAME = N'CProgram FilesMicrosoft SQL ServerMSSQL15.NHILEMSSQLDATADBTrelloMini.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'DBTrelloMini_log', FILENAME = N'CProgram FilesMicrosoft SQL ServerMSSQL15.NHILEMSSQLDATADBTrelloMini_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [DBTrelloMini] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [DBTrelloMini].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [DBTrelloMini] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [DBTrelloMini] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [DBTrelloMini] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [DBTrelloMini] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [DBTrelloMini] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET RECOVERY FULL 
+GO
+ALTER DATABASE [DBTrelloMini] SET  MULTI_USER 
+GO
+ALTER DATABASE [DBTrelloMini] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [DBTrelloMini] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [DBTrelloMini] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [DBTrelloMini] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [DBTrelloMini] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [DBTrelloMini] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'DBTrelloMini', N'ON'
+GO
+ALTER DATABASE [DBTrelloMini] SET QUERY_STORE = OFF
+GO
+USE [DBTrelloMini]
+GO
+ Object  Table [dbo].[Tasks]    Script Date 2852026 111718 PM 
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Tasks](
+	[TaskID] [int] IDENTITY(1,1) NOT NULL,
+	[Title] [nvarchar](255) NOT NULL,
+	[Description] [nvarchar](max) NULL,
+	[Status] [nvarchar](50) NOT NULL,
+	[UserID] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[TaskID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+ Object  Table [dbo].[Users]    Script Date 2852026 111718 PM 
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Users](
+	[UserID] [int] IDENTITY(1,1) NOT NULL,
+	[Username] [nvarchar](50) NOT NULL,
+	[Password] [nvarchar](255) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[UserID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Tasks] ON 
+
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (1, N'Thiết kế giao diện Login', N'Xây dựng giao diện đăng nhập bằng ReactJS', N'To Do', 1)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (2, N'Tạo API đăng ký', N'Xây dựng chức năng đăng ký tài khoản bằng ExpressJS', N'Done', 1)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (3, N'Kết nối SQL Server', N'Thiết lập kết nối cơ sở dữ liệu SQL Server', N'Done', 1)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (4, N'Thiết kế Kanban Board', N'Hiển thị giao diện Kanban gồm 3 cột trạng thái', N'In Progress', 1)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (5, N'Kiểm thử chức năng đăng nhập', N'Test đăng nhập và kiểm tra dữ liệu người dùng', N'Done', 1)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (6, N'Thiết kế cơ sở dữ liệu', N'Tạo bảng Users và Tasks trong SQL Server', N'Done', 2)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (7, N'Viết API lấy danh sách task', N'Xây dựng API GET tasks', N'In Progress', 2)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (8, N'Thiết kế giao diện Task', N'Hiển thị danh sách công việc trên giao diện', N'To Do', 2)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (9, N'Kéo thả công việc', N'Xây dựng chức năng Drag and Drop giữa các cột', N'To Do', 2)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (10, N'Sửa lỗi API', N'Kiểm tra và sửa lỗi dữ liệu trả về', N'Done', 2)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (11, N'Thiết kế Use Case', N'Vẽ sơ đồ Use Case cho hệ thống', N'Done', 3)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (12, N'Phân tích yêu cầu hệ thống', N'Xác định chức năng và yêu cầu nghiệp vụ', N'Done', 3)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (13, N'Viết báo cáo buổi 1', N'Hoàn thành báo cáo định hướng đề tài', N'In Progress', 3)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (14, N'Thiết kế REST API', N'Xây dựng danh sách endpoint cho backend', N'To Do', 3)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (15, N'Kiểm thử CRUD Task', N'Test chức năng thêm sửa xoá task', N'To Do', 3)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (16, N'Tạo project ReactJS', N'Khởi tạo project frontend bằng ReactJS', N'Done', 4)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (17, N'Cấu hình ExpressJS', N'Tạo server backend bằng ExpressJS', N'Done', 4)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (18, N'Thiết kế giao diện bằng Tailwind', N'Setup Tailwind CSS cho hệ thống', N'In Progress', 4)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (19, N'Xây dựng Middleware', N'Kiểm tra JWT Token và xác thực người dùng', N'To Do', 4)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (20, N'Kết nối Frontend và Backend', N'Gọi API bằng Axios để hiển thị dữ liệu', N'To Do', 4)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (21, N'Thiết kế Dashboard', N'Hiển thị tổng quan công việc của người dùng', N'To Do', 5)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (22, N'Thêm chức năng lọc', N'Lọc task theo trạng thái công việc', N'In Progress', 5)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (23, N'Tìm kiếm công việc', N'Tìm kiếm task theo tiêu đề', N'Done', 5)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (24, N'Viết Test Case', N'Kiểm thử các chức năng của hệ thống', N'To Do', 5)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (25, N'Sửa lỗi giao diện', N'Tối ưu và sửa lỗi giao diện Kanban', N'Done', 5)
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [UserID]) VALUES (26, N'123', N'12345', N'To Do', 1)
+SET IDENTITY_INSERT [dbo].[Tasks] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Users] ON 
+
+INSERT [dbo].[Users] ([UserID], [Username], [Password]) VALUES (1, N'uyen_nhi', N'e10adc3949ba59abbe56e057f20f883e')
+INSERT [dbo].[Users] ([UserID], [Username], [Password]) VALUES (2, N'minh_quan', N'e10adc3949ba59abbe56e057f20f883e')
+INSERT [dbo].[Users] ([UserID], [Username], [Password]) VALUES (3, N'thao_nguyen', N'e10adc3949ba59abbe56e057f20f883e')
+INSERT [dbo].[Users] ([UserID], [Username], [Password]) VALUES (4, N'duc_huy', N'e10adc3949ba59abbe56e057f20f883e')
+INSERT [dbo].[Users] ([UserID], [Username], [Password]) VALUES (5, N'ngoc_han', N'e10adc3949ba59abbe56e057f20f883e')
+INSERT [dbo].[Users] ([UserID], [Username], [Password]) VALUES (6, N'nhi', N'e10adc3949ba59abbe56e057f20f883e')
+INSERT [dbo].[Users] ([UserID], [Username], [Password]) VALUES (7, N'nhilele', N'e10adc3949ba59abbe56e057f20f883e')
+SET IDENTITY_INSERT [dbo].[Users] OFF
+GO
+SET ANSI_PADDING ON
+GO
+ Object  Index [UQ__Users__536C85E4062F6753]    Script Date 2852026 111718 PM 
+ALTER TABLE [dbo].[Users] ADD UNIQUE NONCLUSTERED 
+(
+	[Username] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Tasks]  WITH CHECK ADD  CONSTRAINT [FK_Tasks_Users] FOREIGN KEY([UserID])
+REFERENCES [dbo].[Users] ([UserID])
+GO
+ALTER TABLE [dbo].[Tasks] CHECK CONSTRAINT [FK_Tasks_Users]
+GO
+USE [master]
+GO
+ALTER DATABASE [DBTrelloMini] SET  READ_WRITE 
+GO
